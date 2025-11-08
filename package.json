@@ -1,21 +1,20 @@
 {
+  "name": "cypress-ebac-shop",
+  "version": "1.0.0",
+  "description": "Automação E2E com Cypress - EBAC Shop",
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run:chrome": "cypress run --browser chrome",
     "cy:run:headed": "cypress run --headed",
+    "cy:report": "npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json && npx marge cypress/reports/report.json -o cypress/reports/html",
     "test": "cypress run --spec 'cypress/e2e/fluxo-completo.cy.js'",
-    "test:cadastro": "cypress run --spec 'cypress/e2e/cadastro.cy.js'",
-    "test:login": "cypress run --spec 'cypress/e2e/login.cy.js'",
-    "test:produtos": "cypress run --spec 'cypress/e2e/produtos.cy.js'",
-    "test:carrinho": "cypress run --spec 'cypress/e2e/carrinho.cy.js'",
-    "test:checkout": "cypress run --spec 'cypress/e2e/checkout.cy.js'",
-    "test:all": "cypress run --spec 'cypress/e2e/*.cy.js'",
-    "test:debug": "cypress run --spec 'cypress/e2e/debug/**/*.cy.js'"
+    "test:all": "cypress run --spec 'cypress/e2e/*.cy.js'"
   },
   "devDependencies": {
-    "mochawesome": "^7.1.4",
-    "mochawesome-merge": "^5.0.0",
-    "mochawesome-report-generator": "^6.3.2"
+    "cypress": "^13.6.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0"
   }
 }

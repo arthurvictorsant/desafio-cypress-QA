@@ -1,7 +1,10 @@
-name: Cypress Tests
+name: Cypress Tests with Reports
 
 on:
   push:
+    branches:
+      - main
+      - master
   pull_request:
   workflow_dispatch:
 
@@ -17,44 +20,72 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Create reports directory
+        run: mkdir -p cypress/reports
+
       - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-          spec: cypress/e2e/*.cy.js
+        run: npx cypress run --browser chrome --spec "cypress/e2e/*.cy.js"
         continue-on-error: true
 
-      - name: Merge reports
-        if: always()
+      - name: Check if reports exist
+        id: check_reports
+        run: |
+          if ls cypress/reports/*.json 1> /dev/null 2>&1; then
+            echo "reports_exist=true" >> $GITHUB_OUTPUT
+          else
+            echo "reports_exist=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Merge test reports
+        if: always() && steps.check_reports.outputs.reports_exist == 'true'
         run: |
           npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
+
+      - name: Create empty report if no tests ran
+        if: always() && steps.check_reports.outputs.reports_exist == 'false'
+        run: |
+          echo '{"stats":{"tests":0,"passes":0,"failures":0},"results":[]}' > cypress/reports/report.json
 
       - name: Generate HTML report
         if: always()
         run: |
-          npx marge cypress/reports/report.json -o cypress/reports/html
+          npx marge cypress/reports/report.json -o cypress/reports/html --reportTitle "Cypress Test Report" --reportPageTitle "EBAC Shop Tests"
 
-      - name: Upload Report
+      - name: Upload HTML Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-report
+          name: test-report-html
           path: cypress/reports/html
+          retention-days: 30
 
       - name: Upload Screenshots
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: screenshots
+          name: cypress-screenshots
           path: cypress/screenshots
+          retention-days: 30
+          if-no-files-found: ignore
 
       - name: Upload Videos
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: videos
+          name: cypress-videos
           path: cypress/videos
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Upload Test Results JSON
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-json
+          path: cypress/reports/report.json
+          retention-days: 30
