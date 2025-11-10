@@ -394,14 +394,3 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
-## Boas Práticas
-
-- Use Page Objects para organizar seletores e ações
-- Armazene dados de teste em fixtures
-- Use custom commands para ações repetitivas
-- Adicione waits estratégicos entre ações
-- Sempre verifique se elementos estão visíveis antes de interagir
-- Use aliases para reutilizar elementos
-- Mantenha os testes independentes entre si
-
-
