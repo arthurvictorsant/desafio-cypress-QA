@@ -15,13 +15,19 @@ Projeto de automação de testes end-to-end para a loja virtual EBAC utilizando 
 desafio-cypress-QA/
 ├── cypress/
 │   ├── e2e/
-│   │   ├── cadastro.cy.js
-│   │   ├── login.cy.js
-│   │   ├── produtos.cy.js
-│   │   ├── carrinho.cy.js
-│   │   ├── checkout.cy.js
-│   │   ├── busca.cy.js
-│   │   ├── navegacao.cy.js
+│   │   ├── debug/
+│   │   │   ├── cadastro-page.cy.js
+│   │   │   ├── carrinho-page.cy.js
+│   │   │   ├── checkout-page.cy.js
+│   │   │   ├── home-page.cy.js
+│   │   │   ├── login-page.cy.js
+│   │   │   └── produto-page.cy.js
+│   │   ├── units/
+│   │   │   ├── cadastro.cy.js
+│   │   │   ├── carrinho.cy.js
+│   │   │   ├── checkout.cy.js
+│   │   │   ├── login.cy.js
+│   │   │   └── produtos.cy.js
 │   │   └── fluxo-completo.cy.js
 │   ├── fixtures/
 │   │   ├── usuarios.json
@@ -270,14 +276,14 @@ Principais configurações:
 
 ## Casos de Teste
 
-### Cadastro (cadastro.cy.js)
+### Cadastro (cadastro.cy.js) --> O cenário de cadastro é o primeiro passo do cliente para a utilização  E2E da plataforma, deve-se garantir o pleno funcionamento.
 
 - Cadastrar novo usuário com sucesso
 - Impedir cadastro com email duplicado
 - Validar campos obrigatórios
 - Aceitar senha com caracteres especiais
 
-### Login (login.cy.js)
+### Login (login.cy.js) -- > O cenário de login é importante para a segurança do usuário e da plataforma.
 
 - Fazer login com credenciais válidas
 - Rejeitar email inexistente
@@ -286,7 +292,7 @@ Principais configurações:
 - Permitir marcar lembrar senha
 - Fazer logout corretamente
 
-### Produtos (produtos.cy.js)
+### Produtos (produtos.cy.js) --> O cenário de produtos é de vital importancia para o negócio e experiencia do cliente.
 
 - Exibir lista de produtos
 - Acessar página de produto específico
@@ -296,7 +302,7 @@ Principais configurações:
 - Adicionar múltiplos produtos
 - Exibir preço do produto
 
-### Carrinho (carrinho.cy.js)
+### Carrinho (carrinho.cy.js) --> O cenário de carrinho é uma área com muita lógica de negócio complexa , qualquer bug aqui resulta diretamente em perda de venda e prejudica a experiencia do cliente
 
 - Exibir carrinho vazio
 - Adicionar produto no carrinho
@@ -307,7 +313,7 @@ Principais configurações:
 - Permitir aplicar cupom
 - Prosseguir para checkout
 
-### Checkout (checkout.cy.js)
+### Checkout (checkout.cy.js) --> Última etapa antes da conversão, onde o dinheiro entra e integração costumava ser sensivel.
 
 - Exibir resumo do pedido
 - Preencher dados de cobrança
@@ -317,25 +323,11 @@ Principais configurações:
 - Finalizar pedido com sucesso
 - Exibir número do pedido
 
-### Busca (busca.cy.js)
 
-- Buscar produto existente
-- Exibir mensagem para busca sem resultados
-- Buscar com caracteres especiais
-- Buscar com múltiplas palavras
-- Buscar case insensitive
-
-### Navegação (navegacao.cy.js)
-
-- Carregar página inicial
-- Navegar para produtos
-- Navegar para minha conta
-- Abrir carrinho
-- Exibir menu de navegação
-- Exibir rodapé
-- Navegar usando breadcrumb
-
-### Fluxo Completo (fluxo-completo.cy.js)
+### Fluxo Completo (fluxo-completo.cy.js) -->
+Detecta problemas que só aparecem em fluxos completos
+Garante que a experiência end-to-end funciona
+Teste de regressão mais importante para deploys
 
 Teste E2E que simula jornada completa do usuário:
 
@@ -411,4 +403,5 @@ npm install
 - Sempre verifique se elementos estão visíveis antes de interagir
 - Use aliases para reutilizar elementos
 - Mantenha os testes independentes entre si
+
 
