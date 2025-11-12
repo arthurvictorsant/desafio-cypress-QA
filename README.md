@@ -326,7 +326,7 @@ Principais configurações:
 
 ### Fluxo Completo (fluxo-completo.cy.js) -->
 Detecta problemas que só aparecem em fluxos completos
-Garante que a experiência end-to-end funciona
+Garante que a experiência end-to-end funciona.
 Teste de regressão mais importante para deploys
 
 Teste E2E que simula jornada completa do usuário:
@@ -393,4 +393,5 @@ npm install
 rm -rf node_modules package-lock.json
 npm install
 ```
+
 
